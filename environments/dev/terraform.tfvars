@@ -5,7 +5,7 @@
 # -------------------------
 # Project Settings
 # -------------------------
-project_name = "rag-app"
+project_name = "rag-app-harshiniv29"
 stage        = "dev"
 aws_region   = "us-east-1"
 
@@ -18,13 +18,13 @@ lambda_timeout     = 150
 # -------------------------
 # GitHub Repository Settings
 # -------------------------
-github_repo   = "genieincodebottle/rag-app-on-aws"
+github_repo   = "Harshin1V/rag-app"
 github_branch = "develop"
 
 # -------------------------
 # Monitoring
 # -------------------------
-alert_email = "rajsrivastava2@gmail.com"
+alert_email = "harshinivutukuri6@gmail.com"
 
 # -------------------------
 # VPC Settings
