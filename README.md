@@ -1,19 +1,8 @@
-<div align="center">
-    <img src="./images/rag-app.png" alt="RAG App on"/>
-</div>
-
 ## End-to-End RAG Application with Evaluation on AWS
 
 Terraform-based **Infrastructure as Code (IaC)** to deploy a complete AWS backend for a Retrieval-Augmented Generation (RAG) application. It integrates with Google’s free-tier Gemini Pro and Embedding models for AI powered document querying and includes a Streamlit UI with token-based authentication for interacting with the app.
 
-💰 Estimated cost: ~$3 (~₹250) to experiment without the AWS Free Tier, primarily for RDS and NAT Gateway if active. 
-
 👉 Related UI: [RAG UI (Streamlit Frontend)](https://github.com/genieincodebottle/rag-app-on-aws/tree/main/rag_ui)  A Streamlit-based frontend application designed to interact with the backend infrastructure deployed by this project. It's located within the `rag_ui/` directory of this repository.
-
-
-🎥 YouTube Video: Walkthrough on setting up the application, building, deploying, and running it end-to-end 👇
-
-[![Watch the video](https://img.youtube.com/vi/x2P4Ee6PYNg/0.jpg)](https://www.youtube.com/watch?v=x2P4Ee6PYNg)
 
 ---
 
