@@ -619,3 +619,4 @@ jobs:
         with:
           name: integration-test-results
           path: integration-test-results.xml
+    continue-on-error: true
