@@ -1,5 +1,5 @@
 # Project settings
-project_name = "rag01-app-harshiniv"
+project_name = "ragapp"
 stage        = "prod"
 aws_region   = "us-east-1"
 
