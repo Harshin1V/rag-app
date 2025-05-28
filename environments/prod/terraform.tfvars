@@ -1,7 +1,7 @@
 # Project settings
 project_name = "rag01-app-harshiniv"
 stage        = "prod"
-aws_region   = "us-east-1a"
+aws_region   = "us-east-1"
 
 # Lambda settings
 lambda_memory_size = 512
