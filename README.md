@@ -2,7 +2,7 @@
 
 Terraform-based **Infrastructure as Code (IaC)** to deploy a complete AWS backend for a Retrieval-Augmented Generation (RAG) application. It integrates with Google’s free-tier Gemini Pro and Embedding models for AI powered document querying and includes a Streamlit UI with token-based authentication for interacting with the app.
 
-👉 Related UI: [RAG UI (Streamlit Frontend)](https://github.com/genieincodebottle/rag-app-on-aws/tree/main/rag_ui)  A Streamlit-based frontend application designed to interact with the backend infrastructure deployed by this project. It's located within the `rag_ui/` directory of this repository.
+👉 Related UI: [RAG UI (Streamlit Frontend)](https://github.com/Harshin1V/rag-app/tree/main/rag_ui)  A Streamlit-based frontend application designed to interact with the backend infrastructure deployed by this project. It's located within the `rag_ui/` directory of this repository.
 
 ---
 
@@ -52,11 +52,6 @@ This network architecture ensures that sensitive operations and data are process
 
 ![pipeline](./images/pipeline.png)
 
----
-
-### 🔁 AWS Infra Provisioning Flow Diagram
-
-🗺️ [Infra Provisioning Lifecycle Flow](https://github.com/genieincodebottle/rag-app-on-aws/blob/main/images/infra_provisioning_sequence.png) (Illustrates the Terraform provisioning sequence)
 
 ---
 
@@ -166,11 +161,7 @@ The infrastructure is modularized using Terraform modules:
     -   Provides public HTTP(S) endpoints for backend Lambda functions.
     -   Routes include `/upload`, `/query`, and `/auth`.
     -   Configured with CORS for frontend integration.
-    -   Amazon API Gateway has a default timeout of 30 seconds. However, GenAI use cases may require longer processing times. To        support this, you can request an increased timeout via the AWS support form. After logging into your AWS account, use the following URL to access the form. In our case, we’ve configured the timeout to 150,000 milliseconds (2.5 minutes). Select United States (N. Virginia) as the region since it's set as the default in terraform.tfvars. If you're using a different region, choose the appropriate one accordingly. Keep all other settings unchanged.
-
-        https://us-east-1.console.aws.amazon.com/servicequotas/home/template/add 
-    
-        ![aws-quota](./images/aws-quota.png)
+    -   Amazon API Gateway has a default timeout of 30 seconds. However, GenAI use cases may require longer processing times. To        support this, we’ve configured the timeout to 150,000 milliseconds (2.5 minutes). Selecting United States (N. Virginia) as the region since it's set as the default in terraform.tfvars.
 
 -   **Cognito User Pools**:
     -   Manages user identities, including registration, sign-in, email verification, and password reset functionalities.
@@ -200,23 +191,11 @@ The infrastructure is modularized using Terraform modules:
 ### 🛠️ Prerequisites
 
 -   ✅ **Python**: `3.11+` (For Streamlit UI).
--   ✅ **AWS Cloud Account**: You’ll need an AWS account to build and deploy this end-to-end application (excluding the streamlit UI, which can runs locally on your system).
-
-    👉 [AWS Free Account](https://aws.amazon.com/free/?trk=ac458a05-be8b-40e0-8d01-a185a5530151&sc_channel=ps&ef_id=Cj0KCQjw0LDBBhCnARIsAMpYlAqh7SSXOWwVg9QY_kYOXcrrp4IH9FEnyCVj77ulQ2Bok0aCDHNxpTwaAl6jEALw_wcB:G:s&s_kwcid=AL!4422!3!733868005590!e!!g!!aws%20console!22269308134!170505082450&gad_campaignid=22269308134&gbraid=0AAAAADjHtp9YddvDzIUJZUVVM05tVvxI1&gclid=Cj0KCQjw0LDBBhCnARIsAMpYlAqh7SSXOWwVg9QY_kYOXcrrp4IH9FEnyCVj77ulQ2Bok0aCDHNxpTwaAl6jEALw_wcB&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all)
-
-    ![aws-account](./images/aws-account.png)
--   ✅ **GitHub Account**: For forking the repository and using [GitHub](https://github.com/) Actions.
--   ✅ **Git installed on Local Machine**: Use [Git Bash](https://git-scm.com/downloads) or any preferred Git client to manage your repository.
--   ✅ **Google API Key**: For accessing Google's free-tier Gemini Pro and Gemini Embedding models.
-    
-    👉 [Get your API key from Google AI Studio](https://aistudio.google.com/apikey)
-
-    ![gemini-api-key](./images/api_key.png)
--   ✅ Free SonarCloud Account for Code Quality Checks (Optional)
-
-    Sign up at [SonarCloud](https://sonarcloud.io/login?return_to=%2Fexplore%2Fprojects) to enable automated quality gates and static analysis for your codebase.
-
-    ![sonar-cloud](./images/sonar-cloud.png)
+-   ✅ **AWS Cloud Account**
+-   ✅ **GitHub Account**
+-   ✅ **Git installed on Local Machine**
+-   ✅ **Google API Key**
+-   ✅ **SonarCloud Account for Code Quality Checks**
     
 ---
 ### 🌍 Environment Management
@@ -235,9 +214,7 @@ Configuration for each environment (Terraform variables, backend configuration) 
 
 1. Fork the Repository
    
-   👉 https://github.com/genieincodebottle/rag-app-on-aws
- 
-   ![github-fork](./images/github-fork.png)
+   👉 https://github.com/Harshin1V/rag-app
 
 2. Clone to Your Local Machine:
 
@@ -248,8 +225,8 @@ Configuration for each environment (Terraform variables, backend configuration) 
 
    Update the following fields in environments/<stage>/terraform.tfvars:
 
-   * `project_name = "<your-project-name>"` – to avoid global resource name conflicts (e.g., S3 buckets).
-   * `github_repo = "<your-github-username>/rag-app-on-aws"` – for CI/CD pipeline setup.
+   * `project_name = "<your-project-name>"` – to avoid global resource name conflicts (S3 buckets).
+   * `github_repo = "<your-github-username>/rag-app"` – for CI/CD pipeline setup.
    * `alert_email = "<your-email>"` – for receiving deployment alerts.
 
      <img src="./images/terraform.png" alt="security-credentials" width="600" height="400"/>
@@ -257,41 +234,9 @@ Configuration for each environment (Terraform variables, backend configuration) 
 
 #### 🔐 Setting Up GitHub Secrets
 
-1.  **AWS Access Keys**:
-    *   Generate an Access Key for either an IAM user with sufficient permissions or the Root user (which has full access) to experiment and create resources defined in Terraform..
-    
-    *   If logged in as root user -> Go to the top-right dropdown menu after login and select 'Security Credentials' as shown below.
-
-        <img src="./images/security-credential.png" alt="security-credentials" width="200"/>
-
-    *   If IAM User -> Navigate to IAM > Users > [Your User] > Security credentials > Create access key.
-
-    *   Add these as GitHub repository secrets:
-        *   `AWS_ACCESS_KEY_ID`
-        *   `AWS_SECRET_ACCESS_KEY`
-2.  **SonarQube Token (Optional)**:
-    * First, create an organization and import your GitHub project. 
-    * Then, generate an access token and add it to your GitHub repository secrets as SONAR_TOKEN.
-      
-      <img src="./images/sonar-token.png" alt="sonar-token" width="600"/>
-    * Also, update the following keys in the sonar-project.properties file at the project root:
-
-      * `sonar.projectKey=<your-sonar-organization-name>_rag-app-on-aws`
-      * `sonar.organization=<your-sonar-organization-name>`
-
-      <img src="./images/sonar-properties.png" alt="sonar-properties" width="600"/>
-3.  **Google API Key**:
-    *   Although the GEMINI_API_KEY isn’t stored as a GitHub secret for deployment, it’s configured post-deployment via AWS Secrets Manager or as a Terraform variable. Terraform will create a placeholder secret in AWS Secrets Manager, which you must update manually. Go to the AWS Console, search for “Secrets Manager,” and update the secret with your actual Gemini API key (generated from Google’s Gemini AI Studio).
-
-    🔑 Secret name format: <your-project-name>-<your-env>-gemini-api-key
-    Example: rag-app-dev-gemini-api-key
-
-    ![secret-manager](./images/secret-manager.png)
-
-**To Add Secrets**:
-Go to your forked GitHub repository → Settings → Secrets and variables → Actions → New repository secret.
-
-![secrets](./images/secret-keys.png)
+1.  **AWS Access Keys**
+2.  **SonarQube Token**
+3.  **Google API Key**
 
 #### 🤖 Automated Deployment via GitHub Actions
 
@@ -305,63 +250,18 @@ The repository includes two primary GitHub Actions workflows:
     *   A manually triggered workflow to tear down all AWS resources for a specified environment.
     *   Uses the `scripts/cleanup.sh` script.
 
-![github-action](./images/github-action.png)
-
-📤 **Push to trigger CI/CD deployment**:
-   *   **Dev**: `git push origin develop`
-   *   **Staging**: `git push origin staging`
-   *   **Production**: `git push origin main` 
-        * It’s recommended to make changes directly in the main branch of your forked repository to deploy AWS resources.
-        * SonarCloud offers free integration with GitHub’s main branch, and the AWS setup is configured similarly to the dev environment for easy experimentation.
-
-🧑‍💻 **Manually trigger deployment from GitHub**:
-   *   Go to your repository on GitHub.
-   *   Click on the "Actions" tab.
-   *   Select "Terraform AWS Deployment" from the list of workflows.
-   *   Click "Run workflow", choose the branch, environment, and fill in any desired input parameters.
-
 ---
 
 ### 🔄 Running Streamlit UI
 
-👉 UI Readme: https://github.com/genieincodebottle/rag-app-on-aws/rag_ui
-
-Once the AWS resources are deployed via the GitHub Actions pipeline, follow these steps to launch the UI and test the application locally.
-
-* Navigate to the rag-ui directory in your cloned repository using the terminal.
+👉 UI Readme: https://github.com/Harshin1V/rag-app/rag_ui
 
   ```bash
-  cd rag-app-on-aws/rag_ui
+  cd rag-app/rag_ui
   python -m venv venv
-  venv\Scripts\activate # Linux: source venv/bin/activate 
+  source venv/bin/activate
   pip install -r requirements.txt
   ```
-
-* Configuration
-
-    Create a `.env` file:
-
-    ```env
-    # RAG Application API Configuration
-    API_ENDPOINT=https://your-api-gateway-url.amazonaws.com/stage
-    UPLOAD_ENDPOINT=/upload
-    QUERY_ENDPOINT=/query
-    AUTH_ENDPOINT=/auth
-
-    # Default user settings
-    DEFAULT_USER_ID=test-user
-
-    # Cognito Configuration
-    COGNITO_CLIENT_ID=your_cognito_client_id
-
-    # Enabling/disabling evaluation
-    ENABLE_EVALUATION="true"
-    ```
-
-    Once the GitHub Action pipeline completes successfully, you can download the zipped environment variables file from the GitHub Artifact. Unzip it, open the file, and copy both API_ENDPOINT and COGNITO_CLIENT_ID into your .env file.
-
-    ![env-variable](./rag_ui/images/env-variable.png)
-
 
 *  Usage
 
@@ -378,7 +278,7 @@ Once the AWS resources are deployed via the GitHub Actions pipeline, follow thes
 The `deploy.yml` workflow automates the deployment process with the following key steps:
 
 1.  **Determine Environment**: Identifies the target environment (`dev`, `staging`, `prod`) based on the Git branch or manual workflow input.
-2.  **Code Quality (SonarQube)**: (Optional) If a `SONAR_TOKEN` secret is configured, it runs SonarQube analysis using `tox` for code quality checks.
+2.  **Code Quality (SonarQube)**: If a `SONAR_TOKEN` secret is configured, it runs SonarQube analysis using `tox` for code quality checks.
 3.  **Build Lambda Functions**:
     *   Sets up Python 3.11.
     *   Installs dependencies for each Lambda function.
@@ -434,42 +334,3 @@ To remove all AWS resources created by this project for a specific environment:
 5.  Enter the **environment name** (e.g., `dev`, `staging`, `prod`) you wish to clean up.
 6.  Click "Run workflow". This will execute the `scripts/cleanup.sh` script with the necessary context.
 
-#### Using the Cleanup Script Manually:
-**Warning**: This script will delete resources. Ensure you have the correct AWS credentials and region configured for your AWS CLI, and that you are targeting the correct environment.
-1.  Ensure `jq` is installed:
-    ```bash
-    # On Debian/Ubuntu
-    sudo apt-get update && sudo apt-get install -y jq
-    # On macOS (using Homebrew)
-    brew install jq
-    ```
-2.  Navigate to the `scripts` directory:
-    ```bash
-    cd scripts
-    ```
-3.  Make the script executable:
-    ```bash
-    chmod +x cleanup.sh
-    ```
-4.  Run the script, providing the necessary environment variables. The script expects `PROJECT_NAME`, `STAGE`, and `AWS_REGION` to be set. You can set them inline:
-    ```bash
-    PROJECT_NAME="your-project-name" STAGE="dev" AWS_REGION="us-east-1" ./cleanup.sh
-    ```
-    (Replace with your actual project name, stage, and region).
-    The script has built-in confirmations but destructive actions are significant.
----
-
-### 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-1.  Fork the repository.
-2.  Create a new feature branch (e.g., `git checkout -b feature/new-ai-model-integration`).
-3.  Make your changes and commit them with clear messages (e.g., `git commit -m 'feat: Add support for Claude 3 model'`).
-4.  Push your changes to your forked repository (`git push origin feature/new-ai-model-integration`).
-5.  Open a Pull Request to the `develop` branch of the original repository.
-
----
-
-> **Note**: Deploying this infrastructure will incur AWS charges. Always review the output of `terraform plan` before applying changes to understand potential costs and resource modifications.
->
-> **Security Best Practice**: Never commit secrets directly to your Git repository. Use GitHub Secrets for CI/CD variables and manage sensitive application configurations (like API keys) securely, for instance, through AWS Secrets Manager populated via secure Terraform variables or post-deployment steps.
