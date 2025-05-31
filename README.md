@@ -229,8 +229,6 @@ Configuration for each environment (Terraform variables, backend configuration) 
    * `github_repo = "<your-github-username>/rag-app"` – for CI/CD pipeline setup.
    * `alert_email = "<your-email>"` – for receiving deployment alerts.
 
-     <img src="./images/terraform.png" alt="security-credentials" width="600" height="400"/>
-
 
 #### 🔐 Setting Up GitHub Secrets
 
