@@ -16,17 +16,11 @@ A web interface to upload documents, query them using natural language, and retr
 - AI-powered querying with relevance scoring and history
 - Clean, intuitive Streamlit UI
 
-### 🔁 Application Flow Diagrams
-
-- [Authentication Flow](./images/auth_sequence.png)
-- [Doc Upload Flow](./images/document_upload_sequence.png)
-- [Doc Processing Flow](./images/doc_processing_sequence.png)
-- [Query Processing Flow](./images/query_processing_sequence.png)
 
 ### 🏗️ System Architecture
 
 - **Frontend**: Streamlit UI
-- **Backend**: AWS API Gateway, Lambda, Cognito, S3, RDS/OpenSearch, Bedrock (or similar)
+- **Backend**: AWS API Gateway, Lambda, Cognito, S3
 
 ### ⚙️ Prerequisites
 
@@ -37,39 +31,11 @@ A web interface to upload documents, query them using natural language, and retr
 ### 🚀 Installation
 
 ```bash
-git clone https://github.com/genieincodebottle/rag-app-on-aws.git
+git clone https://github.com/Harshin1V/rag-app.git
 cd rag-app-on-aws/rag_ui
 python -m venv venv
-venv\Scripts\activate   # Linux: source venv/bin/activate
 pip install -r requirements.txt
 ```
-
-### 🛠️ Configuration
-
-Create a `.env` file:
-
-```env
-# RAG Application API Configuration
-API_ENDPOINT=https://your-api-gateway-url.amazonaws.com/stage
-UPLOAD_ENDPOINT=/upload
-QUERY_ENDPOINT=/query
-AUTH_ENDPOINT=/auth
-
-# Default user settings
-DEFAULT_USER_ID=test-user
-
-# Cognito Configuration
-COGNITO_CLIENT_ID=your_cognito_client_id
-
-# Enabling/disabling evaluation
-ENABLE_EVALUATION="true"
-```
-
-Once the GitHub Action pipeline completes successfully, you can download the zipped environment variables file from the GitHub Artifact. Unzip it, open the file, and copy both API_ENDPOINT and COGNITO_CLIENT_ID into your .env file.
-
-
-![env-variable](./images/env-variable.png)
-
 
 ### 💡 Usage
 
@@ -95,11 +61,3 @@ Uploaded docs are:
 - Converted and chunked
 - Embedded into vectors
 - Indexed for semantic retrieval
-
-### 🔗 Related Projects
-
-- [RAG Backend & Infra](https://github.com/genieincodebottle/rag-app-on-aws): Terraform infrastructure and backend Lambda codebase.
-
----
-
-**Note**: Designed for use with [rag-app-on-aws](https://github.com/genieincodebottle/rag-app-on-aws) backend infrastructure.
